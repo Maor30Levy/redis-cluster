@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      db: redis
+  template:
+    metadata:
+      labels:
+        db: redis
+    spec: 
+      containers:
+        - name: redis
+          image: maor30levy/custome-redis:latest
+          ports:
+            - containerPort: 6379

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: app
+  template:
+    metadata:
+      labels:
+        component: app
+    spec: 
+      containers:
+      - name: app
+        image: maor30levy/reids-app:latest
+        ports:
+          - containerPort: 4000
+        env:
+          - name: HOST
+            valueFrom:
+              configMapKeyRef:
+                name: app-env
+                key: HOST
+          - name: PORT
+            valueFrom:
+              configMapKeyRef:
+                name: app-env
+                key: PORT
